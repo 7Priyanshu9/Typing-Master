@@ -49,20 +49,20 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
+    let interval: number | null = null;
     if (isFocused && !isCompleted && timer > 0) {
-      interval = setInterval(() => {
+      interval = window.setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
     } else if (timer <= 0) {
       setIsCompleted(true);
     }
-
+  
     return () => {
       if (interval) clearInterval(interval);
     };
   }, [isFocused, isCompleted, timer]);
-
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!startTime) setStartTime(Date.now());
     if (isCompleted || timer <= 0) return;
